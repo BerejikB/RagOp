@@ -1,0 +1,61 @@
+# RagOp (RAG Operational Skeleton)
+
+A clean, machine-agnostic skeleton for a lightweight Retrieval-Augmented Generation (RAG) CLI.
+
+Goals:
+- Zero machine-specific paths. All configuration via env vars, flags, or small config files.
+- Easy install: one-line setup on Windows (PowerShell) or Linux/macOS (Bash/WSL).
+- Easy reconfigure: override defaults on the fly via CLI flags or environment variables.
+- Portable repo you can clone anywhere and test without local coupling.
+
+Status: Uninitialized scaffold (no RAG logic implemented yet). You can install and run `ragop --help`.
+
+## Quick start
+
+- Windows (PowerShell):
+```
+./scripts/setup.ps1
+./scripts/ragop.ps1 --help
+```
+- Linux/macOS/WSL (Bash):
+```
+./scripts/setup.sh
+./scripts/ragop.sh --help
+```
+
+This sets up a local venv in `.venv` and installs the package in editable mode.
+
+## Configuration model
+
+Precedence (highest first):
+1) CLI flags
+2) Environment variables
+3) Defaults baked in code
+
+Key env vars:
+- RAGOP_INDEX: Path to the RAG index file. Default: <repo>/.index/rag_index.pkl
+- RAGOP_K: Retrieval depth (default 1)
+- RAGOP_SNIPPET_MAX_CHARS: Max chars per snippet (default 500)
+- RAGOP_MAX_TOTAL_CHARS: Total bound for composed context (default 1200)
+
+These can be overridden per-invocation with CLI flags (`--index`, `--k`, etc.).
+
+## Repo layout
+
+- src/ragop/cli.py — CLI entrypoint (build/query/compose stubs)
+- src/ragop/config.py — Config/env handling with sensible defaults
+- scripts/setup.(ps1|sh) — Create venv and install package
+- scripts/ragop.(ps1|sh) — Wrapper to run CLI via venv without activation
+- .index/ — Default index location (git-ignored)
+
+## Implement me
+
+This is a scaffold only. Implement your RAG logic in:
+- src/ragop/index.py — build/load index
+- src/ragop/retrieve.py — retrieval routines
+- src/ragop/compose.py — compose ultra-compact context
+
+Keep logic path-agnostic and respect `config.py` defaults and overrides.
+
+## License
+MIT (see LICENSE)

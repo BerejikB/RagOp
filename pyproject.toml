@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ragop"
+version = "0.0.0"
+description = "Machine-agnostic RAG operational skeleton"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "RagOp Maintainers"}]
+dependencies = []
+
+[project.scripts]
+ragop = "ragop.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,2 @@
+[console_scripts]
+ragop = ragop.cli:main
